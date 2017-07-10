@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<MenuBar xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="io.github.massongit.othello2017.kotlin.app.menu.MenuController">
+    <useSystemMenuBar>true</useSystemMenuBar>
+    <Menu text="%file">
+        <MenuItem onAction="#onReset" text="%reset">
+            <accelerator>
+                <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="UP" shortcut="DOWN"/>
+            </accelerator>
+        </MenuItem>
+        <MenuItem onAction="#onClose" text="%close">
+            <accelerator>
+                <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="DOWN"/>
+            </accelerator>
+        </MenuItem>
+    </Menu>
+    <Menu text="%help">
+        <MenuItem onAction="#onAbout" text="%about"/>
+    </Menu>
+</MenuBar>

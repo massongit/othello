@@ -1,0 +1,21 @@
+/*盤面*/
+#board {
+    -fx-background-color: lime;
+    -fx-grid-lines-visible: true;
+}
+
+/*先手 (黒) の石*/
+.play-first-tern {
+    -fx-fill: black;
+}
+
+/*後手 (白) の石*/
+.draw-first-tern {
+    -fx-fill: white;
+}
+
+/*選択肢インジケーター*/
+.choice-indicator {
+    -fx-fill: red;
+    -fx-cursor: hand;
+}

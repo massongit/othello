@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="title">Othello</entry>
+    <entry key="press-space">Press Space Key......</entry>
+    <entry key="file">_File</entry>
+    <entry key="reset">_Reset</entry>
+    <entry key="close">_Close</entry>
+    <entry key="help">_Help</entry>
+    <entry key="about">_About</entry>
+    <entry key="play-first-tern">Black's tern</entry>
+    <entry key="draw-first-tern">White's tern</entry>
+    <entry key="error-dialog-title">Error</entry>
+    <entry key="error-dialog-label">The exception stacktrace was:</entry>
+    <entry key="play-first-win">Black Win!</entry>
+    <entry key="draw-first-win">White Win!</entry>
+    <entry key="draw">Draw!</entry>
+    <entry key="replay">Do you play this game again?</entry>
+    <entry key="credit">Created by Masaya SUZUKI</entry>
+</properties>

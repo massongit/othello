@@ -1,0 +1,9 @@
+/*コンテンツ*/
+#content {
+    -fx-background-color: lime;
+}
+
+/*タイトル*/
+#title {
+    -fx-background-color: white;
+}

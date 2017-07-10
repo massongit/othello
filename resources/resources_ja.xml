@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="title">オセロ</entry>
+    <entry key="press-space">スペースキーを押してください......</entry>
+    <entry key="file">ファイル(_F)</entry>
+    <entry key="reset">リセット(_N)</entry>
+    <entry key="close">閉じる(_X)</entry>
+    <entry key="help">ヘルプ(_H)</entry>
+    <entry key="about">オセロについて</entry>
+    <entry key="play-first-tern">黒のターン</entry>
+    <entry key="draw-first-tern">白のターン</entry>
+    <entry key="error-dialog-title">エラー</entry>
+    <entry key="error-dialog-label">スタックトレース:</entry>
+    <entry key="play-first-win">黒の勝ち!</entry>
+    <entry key="draw-first-win">白の勝ち!</entry>
+    <entry key="draw">リセット (_N)</entry>
+    <entry key="replay">もう一度プレイしますか？</entry>
+    <entry key="credit">Created by Masaya SUZUKI</entry>
+</properties>
