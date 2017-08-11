@@ -4,7 +4,7 @@
 <VBox stylesheets="@PlayDisplay.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="io.github.massongit.othello2017.kotlin.app.play.PlayDisplayController">
     <fx:include fx:id="menu" source="../menu/Menu.fxml"/>
-    <GridPane fx:id="board">
+    <GridPane fx:id="board" styleClass="board">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" prefWidth="60.0"/>
             <ColumnConstraints halignment="CENTER" prefWidth="60.0"/>

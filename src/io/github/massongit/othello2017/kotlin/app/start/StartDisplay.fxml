@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox prefHeight="563.0" prefWidth="480.0" stylesheets="@StartDisplay.css"
-      xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="563.0" prefWidth="480.0" stylesheets="@StartDisplay.css, @../play/PlayDisplay.css"
+      xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.massongit.othello2017.kotlin.app.start.StartDisplayController">
     <fx:include source="../menu/Menu.fxml"/>
-    <VBox id="content" alignment="CENTER" fillWidth="false" prefHeight="506.0" prefWidth="480.0">
-        <VBox id="title" alignment="CENTER" prefHeight="73.0" prefWidth="209.0">
-            <Label alignment="CENTER" text="%title">
-                <font>
-                    <Font size="43.0"/>
-                </font>
-            </Label>
-            <Label/>
-            <Label text="%press-space" textAlignment="CENTER"/>
-        </VBox>
+    <VBox alignment="CENTER" fillWidth="false" prefHeight="506.0" prefWidth="480.0" styleClass="board">
+        <Label id="title" alignment="CENTER" prefHeight="60.0" prefWidth="180.0" text="%title">
+            <font>
+                <Font size="43.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="6.0"/>
+            </VBox.margin>
+        </Label>
+        <TitledPane animated="false" text="%strength-of-ai">
+            <VBox prefHeight="56.0" prefWidth="0.0">
+                <RadioButton fx:id="strongAI" mnemonicParsing="false" selected="true" text="%strong-ai">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="aiStrength"/>
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="weakAI" mnemonicParsing="false" text="%weak-ai" toggleGroup="$aiStrength"/>
+            </VBox>
+            <padding>
+                <Insets bottom="12.0" top="12.0"/>
+            </padding>
+        </TitledPane>
+        <Button mnemonicParsing="false" onMouseClicked="#onClick" text="%start">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </Button>
     </VBox>
 </VBox>

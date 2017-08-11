@@ -1,11 +1,16 @@
 package io.github.massongit.othello2017.kotlin.app.play
 
+import io.github.massongit.othello2017.kotlin.app.MainApplication
 import io.github.massongit.othello2017.kotlin.app.menu.MenuController
+import io.github.massongit.othello2017.kotlin.app.play.ai.AI
+import io.github.massongit.othello2017.kotlin.app.play.ai.nega_max.NegaMaxAI
 import io.github.massongit.othello2017.kotlin.app.play.information.InformationController
-import io.github.massongit.othello2017.kotlin.app.play.stone.ChoiceIndicator
+import io.github.massongit.othello2017.kotlin.app.play.stone.Move
 import io.github.massongit.othello2017.kotlin.app.play.stone.Stone
 import io.github.massongit.othello2017.kotlin.app.play.stone.StoneState
-import io.github.massongit.othello2017.kotlin.utils.*
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
+import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -13,7 +18,7 @@ import javafx.scene.control.Alert
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.ButtonType
 import javafx.scene.layout.GridPane
-import java.math.BigInteger
+import javafx.util.Duration
 import java.net.URL
 import java.util.*
 
@@ -21,7 +26,7 @@ import java.util.*
  * プレイ画面コントローラ
  * @author Masaya SUZUKI
  */
-class PlayDisplayController : Initializable {
+class PlayDisplayController : Initializable, Node<PlayDisplayController>() {
     /**
      * 盤面本体
      */
@@ -46,32 +51,34 @@ class PlayDisplayController : Initializable {
     private lateinit var resources: ResourceBundle
 
     /**
-     * 現在のターン
+     * AIが担当するターン
      */
-    private var tern: StoneState = StoneState.PLAY_FIRST
+    private lateinit var aiTern: StoneState
 
     /**
-     * 石のインスタンスボード
+     * AI
      */
-    private val stoneInstanceBoard: MutableMap<Int, Stone> = mutableMapOf()
+    private val ai: AI = NegaMaxAI(MainApplication.aiStrength)
 
     /**
-     * 選択肢インジケーターのインスタンスボード
+     * 乱数生成器
      */
-    private val choiceIndicatorInstanceBoard: MutableMap<Int, ChoiceIndicator> = mutableMapOf()
+    private val random: Random = Random()
 
     /**
-     * 石のビットボード
+     * インスタンスボード
      */
-    private val stoneBitBoard: MutableMap<StoneState, BigInteger> = mutableMapOf(
-            StoneState.PLAY_FIRST to BigInteger.ZERO, // 先手
-            StoneState.DRAW_FIRST to BigInteger.ZERO // 後手
-    )
+    private val instanceBoard: MutableMap<Int, Stone> = mutableMapOf()
 
     /**
-     * 盤面のマスの数
+     * AIが思考している際の盤面のスタイルクラス
      */
-    private val BOARD_SIZE: Int = 64
+    private val BOARD_FOR_AI_STYLE_CLASS: String = "board-for-ai"
+
+    /**
+     * 出力用の列表記の対応表
+     */
+    private val COLUMN_INDEX_CORRESPONDENCE_TABLE = listOf("a", "b", "c", "d", "e", "f", "g", "h")
 
     override fun initialize(location: URL, resources: ResourceBundle) {
         this.resources = resources
@@ -82,19 +89,26 @@ class PlayDisplayController : Initializable {
         this.addStone(3, 3, StoneState.DRAW_FIRST)
         this.addStone(4, 4, StoneState.DRAW_FIRST)
 
+        // AIのターンを決める
+        if (this.random.nextBoolean()) {
+            this.aiTern = StoneState.PLAY_FIRST
+        } else {
+            this.aiTern = StoneState.DRAW_FIRST
+        }
+
+        // プレイヤーが先手か後手かを表示する
+        Alert(AlertType.INFORMATION, this.resources.getString(this.aiTern.inv().decideTernKey)).apply { headerText = null }.showAndWait()
+
         // 先手のターンを始める
         this.nextTern(this.tern)
     }
 
-    /**
-     * 石を追加する
-     * @param columnIndex 列
-     * @param rowIndex 行
-     * @param stoneState 石の種類
-     */
-    private fun addStone(columnIndex: Int, rowIndex: Int, stoneState: StoneState) {
+    override fun addStone(columnIndex: Int, rowIndex: Int, stoneState: StoneState) {
+        // インデックス
+        val index = this.getStoneBoardIndex(columnIndex, rowIndex)
+
         // 既に置かれている石を削除
-        this.board.children.remove(this.stoneInstanceBoard.remove(this.getStoneBoardIndex(columnIndex, rowIndex)))
+        this.removeStoneFromBoard(this.instanceBoard.remove(index))
 
         // 石
         val stone = Stone(stoneState)
@@ -103,239 +117,100 @@ class PlayDisplayController : Initializable {
         this.board.add(stone, columnIndex, rowIndex)
 
         // インスタンスボードに石を追加する
-        this.stoneInstanceBoard[this.getStoneBoardIndex(columnIndex, rowIndex)] = stone
+        this.instanceBoard[index] = stone
 
-        // ビットボードに石を置く
-        this.stoneBitBoard[stoneState] = this.stoneBitBoard[stoneState]!! or this.getStoneBit(columnIndex, rowIndex)
+        super.addStone(columnIndex, rowIndex, stoneState)
     }
 
-    /**
-     * ターンを実行する
-     * @param choiceIndicator 選択肢インジケーター
-     */
-    private fun executeTern(choiceIndicator: ChoiceIndicator) {
-        // 石の列
-        val stoneColumnIndex = GridPane.getColumnIndex(choiceIndicator)
-
-        // 石の行
-        val stoneRowIndex = GridPane.getRowIndex(choiceIndicator)
-
-        // 石の座標を標準出力へ出力
-        println("Put: ${this.tern.name} ($stoneColumnIndex, $stoneRowIndex)")
-
-        // 反転処理前の自分のビットボード
-        val prevMyBitBoard = this.stoneBitBoard[this.tern]!!
-
-        // ビットボードに対して反転処理を行う
-        this.stoneBitBoard[this.tern] = this.stoneBitBoard[this.tern]!! or this.getStoneBit(stoneColumnIndex, stoneRowIndex) or choiceIndicator.reversePattern
-        this.stoneBitBoard[this.tern.inv()] = this.stoneBitBoard[this.tern.inv()]!! xor choiceIndicator.reversePattern
-
-        // 反転処理前後での自分のビットボードの差分
-        var myBitBoardDiff = prevMyBitBoard xor this.stoneBitBoard[this.tern]!!
-
-        // インスタンスボードに対して反転処理を行う
-        for (i in this.BOARD_SIZE - 1 downTo 0) {
-            if (myBitBoardDiff == BigInteger.ZERO) {
-                break
-            } else {
-                if (myBitBoardDiff and BigInteger.ONE == BigInteger.ONE) {
-                    this.addStone(this.getStoneColumnIndex(i), this.getStoneRowIndex(i), this.tern)
-                }
-                myBitBoardDiff = myBitBoardDiff ushr 1
-            }
+    override fun nextTern(stoneState: StoneState): List<PlayDisplayController> {
+        // 着手を全て削除する
+        for (i in 0 until this.moveList.size) {
+            this.removeStoneFromBoard(this.moveList.removeAt(0))
         }
 
-        // 選択肢インジケーターを全削除
-        for (i in 0 until this.BOARD_SIZE) {
-            if (this.choiceIndicatorInstanceBoard.contains(i) && this.choiceIndicatorInstanceBoard[i]!!.styleClass.contains(ChoiceIndicator.STYLE_CLASS)) {
-                this.board.children.remove(this.choiceIndicatorInstanceBoard.remove(i))
-            }
-        }
-
-        // 次のターンへ移る
-        this.nextTern(this.tern.inv())
+        return super.nextTern(stoneState)
     }
 
-    /**
-     * 次のターンへ移る
-     * @param stoneState 次のターンの先手・後手
-     */
-    private fun nextTern(stoneState: StoneState) {
-        // 自分のターン -> 相手のターンの順に次のターンへ移れるかどうかを見る
-        // (nullになった場合は勝負が着いたものとみなす)
-        for (state in listOf(stoneState, stoneState.inv(), null)) {
-            if (state == null) { // 勝負が着いた場合、勝敗を表示し、ループを抜ける
-                this.endGame()
-                break
-            } else { // まだ勝負が着いていないとき
-                // ビットボードを動かすラムダ式のリスト
-                val transfers: List<(BigInteger) -> BigInteger> = listOf<(BigInteger) -> BigInteger>(
-                        { (it shl 1) and BigInteger("fefefefefefefefe", 16) }, // 左方向へ1マス
-                        { (it ushr 1) and BigInteger("7f7f7f7f7f7f7f7f", 16) }, // 右方向へ1マス
-                        { (it shl 7) and BigInteger("7f7f7f7f7f7f7f00", 16) }, // 右上方向へ1マス
-                        { (it ushr 7) and BigInteger("fefefefefefefe", 16) }, // 左下方向へ1マス
-                        { (it shl 8) and BigInteger("ffffffffffffff00", 16) }, // 上方向へ1マス
-                        { (it ushr 8) and BigInteger("ffffffffffffff", 16) }, // 下方向へ1マス
-                        { (it shl 9) and BigInteger("fefefefefefefe00", 16) }, // 左上方向へ1マス
-                        { (it ushr 9) and BigInteger("7f7f7f7f7f7f7f", 16) } // 右下方向へ1マス
-                )
-
-                // 選択肢インジケーターのビットボード
-                var choicePattern = BigInteger.ZERO
-
-                // 石が置けそうな場所を探す
-                for (transfer in transfers) {
-                    choicePattern = choicePattern or transfer(this.stoneBitBoard[state.inv()]!!)
-                }
-                choicePattern = choicePattern and (this.stoneBitBoard[state]!! or this.stoneBitBoard[state.inv()]!!).inv()
-
-                // 実際に石が置かれたかどうか
-                var isPutStone = false
-
-                // マスク
-                var mask = BigInteger.ONE
-
-                // 実際に石が置ける場所を探し、石を置いていく
-                for (i in this.BOARD_SIZE - 1 downTo 0) {
-                    if (choicePattern == BigInteger.ZERO) { // 石を置けそうな場所がない場合、ループを抜ける
-                        break
-                    } else {
-                        // 現在見ている位置
-                        val currentPosition = choicePattern and mask
-
-                        // 現在見ている位置が石を置ける場所の候補に入っているとき
-                        if (currentPosition != BigInteger.ZERO) {
-                            // 反転する石が立ったビットボード
-                            var reversePattern = BigInteger.ZERO
-
-                            // 各方向について、反転する石のビットを立てる
-                            for (transfer in transfers) {
-                                // 現在見ている方向で反転する石が立ったビットボード
-                                var reverseStones = BigInteger.ZERO
-
-                                // マスク
-                                var reverseStoneMask = currentPosition
-
-                                // 現在見ている方向へ石を反転させていく
-                                while (true) {
-                                    reverseStoneMask = transfer(reverseStoneMask)
-                                    if (reverseStoneMask and this.stoneBitBoard[state.inv()]!! == BigInteger.ZERO) { // 反転させられない場所にきた場合、ループを抜ける
-                                        break
-                                    } else {
-                                        reverseStones = reverseStones or reverseStoneMask
-                                    }
-                                }
-
-                                // 石を反転させていき、最後に自分の石に到達した場合、反転する石が立ったビットボードへ結果をマージ
-                                if (reverseStoneMask and this.stoneBitBoard[state]!! != BigInteger.ZERO) {
-                                    reversePattern = reversePattern or reverseStones
-                                }
-                            }
-
-                            if (reversePattern != BigInteger.ZERO) { // 実際に石が置ける場所に石を置く
-                                // 列
-                                val columnIndex = this.getStoneColumnIndex(i)
-
-                                // 行
-                                val rowIndex = this.getStoneRowIndex(i)
-
-                                // 選択肢インジケーター
-                                val choiceIndicator = ChoiceIndicator(reversePattern, EventHandler { this.executeTern(it.source as ChoiceIndicator) })
-
-                                // 盤面本体に選択肢インジケーターを追加する
-                                this.board.add(choiceIndicator, columnIndex, rowIndex)
-
-                                // インスタンスボードに選択肢インジケーターを追加する
-                                this.choiceIndicatorInstanceBoard[this.getStoneBoardIndex(columnIndex, rowIndex)] = choiceIndicator
-
-                                isPutStone = true
-                            }
-
-                            choicePattern = choicePattern xor mask
-                        }
-
-                        mask = mask shl 1
-                    }
-                }
-
-                // 実際に石が置かれた場合、ループを抜ける
-                if (isPutStone) {
-                    // 現在見ているターンと実際のターンが一致する場合、ターンを進める
-                    if (state != this.tern) {
-                        this.tern = this.tern.inv()
-                        this.informationController.change(this.tern.styleClass)
-                    }
-
-                    break
-                }
-            }
-        }
-    }
-
-    /**
-     * ゲームを終了させる
-     */
-    private fun endGame() {
+    override fun endGame() = Platform.runLater {
         // ダイアログ
-        val victoryOrDefeatDialog = Alert(AlertType.INFORMATION).apply { headerText = null }
+        val dialog = Alert(AlertType.INFORMATION).apply { headerText = null }
 
         // 勝敗を出力
-        if (this.stoneBitBoard[StoneState.PLAY_FIRST]!!.bitCount() == this.stoneBitBoard[StoneState.DRAW_FIRST]!!.bitCount()) {
-            victoryOrDefeatDialog.contentText = this.resources.getString("draw")
+        if (this.bitBoard[StoneState.PLAY_FIRST]!!.bitCount() == this.bitBoard[StoneState.DRAW_FIRST]!!.bitCount()) {
+            dialog.contentText = this.resources.getString("draw")
             println("Draw")
         } else {
             val winStone: StoneState
 
-            if (this.stoneBitBoard[StoneState.PLAY_FIRST]!!.bitCount() < this.stoneBitBoard[StoneState.DRAW_FIRST]!!.bitCount()) {
+            if (this.bitBoard[StoneState.PLAY_FIRST]!!.bitCount() < this.bitBoard[StoneState.DRAW_FIRST]!!.bitCount()) {
                 winStone = StoneState.DRAW_FIRST
             } else {
                 winStone = StoneState.PLAY_FIRST
             }
 
-            victoryOrDefeatDialog.contentText = this.resources.getString(winStone.winKey)
+            dialog.contentText = this.resources.getString(winStone.winKey)
             println("Win: ${winStone.name}")
         }
 
         // ダイアログを表示
-        victoryOrDefeatDialog.showAndWait()
+        dialog.showAndWait()
 
         if (Alert(AlertType.CONFIRMATION, this.resources.getString("replay")).apply {
             headerText = null
             buttonTypes.setAll(ButtonType.YES, ButtonType.NO)
-        }.showAndWait().get() == ButtonType.YES) {
+        }.showAndWait().get() == ButtonType.YES) { // ゲームをもう一度プレイする場合
             this.menuController.onReset()
-        } else {
+        } else { // ゲームを終了する場合
             this.menuController.onClose()
         }
     }
 
-    /**
-     * 石の座標をボード上のインデックスに変換する
-     * @param columnIndex 列
-     * @param rowIndex 行
-     * @return ボード上のインデックス
-     */
-    private fun getStoneBoardIndex(columnIndex: Int, rowIndex: Int): Int = 8 * rowIndex + columnIndex
+    override fun addMove(move: Move, columnIndex: Int, rowIndex: Int) {
+        // 盤面本体に着手を追加する
+        this.board.children.add(move)
+
+        super.addMove(move, columnIndex, rowIndex)
+    }
+
+    override fun changeTern(state: StoneState): List<PlayDisplayController> {
+        // 現在見ているターンと実際のターンが一致しない場合、ターンを進める
+        if (state != this.tern) {
+            this.tern = this.tern.inv()
+            this.informationController.change(this.tern.styleClass)
+        }
+
+        if (this.tern == aiTern) { // AIのターンのとき
+            // 盤面のスタイルクラスをAIが思考している際のものに変更する
+            this.board.styleClass.add(this.BOARD_FOR_AI_STYLE_CLASS)
+
+            // AIのターンを実行する
+            // (思考時間 = 実際の思考時間 + 300〜1199ms)
+            Timeline(KeyFrame(Duration.millis(300.0 + this.random.nextInt(900)), EventHandler {
+                // 盤面のスタイルクラスを通常のものに戻す
+                this.board.styleClass.remove(this.BOARD_FOR_AI_STYLE_CLASS)
+
+                // AIのターンをを実行する
+                this.executeTern(this.ai.execute(this.tern, this.bitBoard.toMutableMap(), this.moveList.toList()))
+            })).play()
+        } else { // ユーザのターンの場合、着手をユーザ仕様に変更する
+            for (move in this.moveList) {
+                move.toUser(EventHandler { this.executeTern(it.source as Move) })
+            }
+        }
+
+        return super.changeTern(state)
+    }
+
+    override fun executeTern(move: Move, columnIndex: Int, rowIndex: Int): List<PlayDisplayController> {
+        // 石の座標を標準出力へ出力
+        println("Put: ${this.COLUMN_INDEX_CORRESPONDENCE_TABLE[columnIndex]}${rowIndex + 1} (${this.tern.name})")
+
+        return super.executeTern(move, columnIndex, rowIndex)
+    }
 
     /**
-     * ボード上のインデックスから列を取得する
-     * @param index ボード上のインデックス
-     * @return 列
+     * 盤面本体から石を削除する
+     * @param stone 石
      */
-    private fun getStoneColumnIndex(index: Int): Int = index % 8
-
-    /**
-     * ボード上のインデックスから行を取得する
-     * @param index ボード上のインデックス
-     * @return 行
-     */
-    private fun getStoneRowIndex(index: Int): Int = index / 8
-
-    /**
-     * 石の座標を表すビットのみが立ったビットボードを取得する
-     * @param columnIndex 列
-     * @param rowIndex 行
-     * @return 石の座標を表すビットのみが立ったビットボード
-     */
-    private fun getStoneBit(columnIndex: Int, rowIndex: Int): BigInteger = BigInteger.ONE shl (this.BOARD_SIZE - this.getStoneBoardIndex(columnIndex, rowIndex) - 1)
+    private fun removeStoneFromBoard(stone: Stone?) = this.board.children.remove(stone)
 }

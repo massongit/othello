@@ -1,7 +1,16 @@
 /*盤面*/
-#board {
+.board {
     -fx-background-color: lime;
+}
+
+/*盤面*/
+#board {
     -fx-grid-lines-visible: true;
+}
+
+/*AIが思考している際の盤面*/
+.board-for-ai {
+    -fx-opacity: 50%;
 }
 
 /*先手 (黒) の石*/
@@ -14,8 +23,12 @@
     -fx-fill: white;
 }
 
-/*選択肢インジケーター*/
-.choice-indicator {
+/*着手*/
+.move {
     -fx-fill: red;
+}
+
+/*ユーザ向け着手*/
+.move-for-user {
     -fx-cursor: hand;
 }

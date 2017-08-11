@@ -129,7 +129,7 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 ### Emacs template
-# -*- mode: gitignore; -*-
+# -*- strength: gitignore; -*-
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -138,11 +138,11 @@ auto-save-list
 tramp
 .\#*
 
-# Org-mode
+# Org-strength
 .org-id-locations
 *_archive
 
-# flymake-mode
+# flymake-strength
 *_flymake.*
 
 # eshell files

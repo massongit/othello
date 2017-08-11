@@ -5,7 +5,8 @@ import javafx.application.Application
 
 /**
  * エントリポイント
- * @param args
+ * ( https://github.com/seraphy/JavaFXSimpleApp/blob/master/src/jp/seraphyware/simpleapp6/SimpleApp6.java を元に作成)
+ * @param args プログラム引数
  * @author seraphy, Masaya SUZUKI
  */
 fun main(args: Array<String>) = Application.launch(MainApplication::class.java, *args)

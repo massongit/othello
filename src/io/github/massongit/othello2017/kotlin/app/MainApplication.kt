@@ -1,5 +1,6 @@
 package io.github.massongit.othello2017.kotlin.app
 
+import io.github.massongit.othello2017.kotlin.app.play.ai.AIStrength
 import io.github.massongit.othello2017.kotlin.utils.XMLResourceBundleControl
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -19,6 +20,7 @@ import java.util.*
 
 /**
  * メインアプリケーション
+ * ( https://github.com/seraphy/JavaFXSimpleApp/blob/master/src/jp/seraphyware/utils/ErrorDialogUtils.java を元に作成)
  * @author seraphy, Masaya SUZUKI
  */
 class MainApplication : Application() {
@@ -27,6 +29,11 @@ class MainApplication : Application() {
          * ステージ
          */
         lateinit var stage: Stage
+
+        /**
+         * AIの強さ
+         */
+        var aiStrength: AIStrength = AIStrength.STRONG
 
         /**
          * プロパティ
@@ -42,9 +49,8 @@ class MainApplication : Application() {
          * 画面を遷移させる
          * @param display 遷移先の画面
          */
-        fun translateDisplay(display: DisplayKind) {
+        fun translateDisplay(display: DisplayType) {
             stage.scene = Scene(FXMLLoader(MainApplication::class.java.getResource(Paths.get(MainApplication::class.qualifiedName?.replace(".", "/")).parent.relativize(display.fxmlPath).toString()), RESOURCES).load())
-            display.init()
             stage.apply {
                 // ステージの表示
                 show()
@@ -61,7 +67,9 @@ class MainApplication : Application() {
     override fun start(primaryStage: Stage) {
         try {
             stage = primaryStage.apply { title = RESOURCES.getString("title") }
-            translateDisplay(DisplayKind.START)
+
+            // スタート画面へ遷移する
+            translateDisplay(DisplayType.START)
         } catch (ex: Exception) {
             // スタックトレースを標準エラー出力へ出力する
             ex.printStackTrace()

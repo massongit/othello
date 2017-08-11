@@ -2,12 +2,17 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="title">Othello</entry>
-    <entry key="press-space">Press Space Key......</entry>
+    <entry key="start">Start</entry>
+    <entry key="strength-of-ai">Strength of AI</entry>
+    <entry key="strong-ai">Strong</entry>
+    <entry key="weak-ai">Weak</entry>
     <entry key="file">_File</entry>
     <entry key="reset">_Reset</entry>
     <entry key="close">_Close</entry>
     <entry key="help">_Help</entry>
     <entry key="about">_About</entry>
+    <entry key="your-stone-is-black">Your stone is Black!</entry>
+    <entry key="your-stone-is-white">Your stone is White!</entry>
     <entry key="play-first-tern">Black's tern</entry>
     <entry key="draw-first-tern">White's tern</entry>
     <entry key="error-dialog-title">Error</entry>

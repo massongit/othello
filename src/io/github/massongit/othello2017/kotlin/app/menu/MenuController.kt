@@ -1,6 +1,6 @@
 package io.github.massongit.othello2017.kotlin.app.menu
 
-import io.github.massongit.othello2017.kotlin.app.DisplayKind
+import io.github.massongit.othello2017.kotlin.app.DisplayType
 import io.github.massongit.othello2017.kotlin.app.MainApplication
 import javafx.application.Platform
 import javafx.fxml.FXML
@@ -29,7 +29,7 @@ class MenuController : Initializable {
      * ゲームをリセットする
      */
     @FXML
-    fun onReset() = MainApplication.translateDisplay(DisplayKind.START)
+    fun onReset() = MainApplication.translateDisplay(DisplayType.START)
 
     /**
      * プログラムを終了する
