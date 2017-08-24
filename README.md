@@ -1,15 +1,15 @@
-#オセロ [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+# オセロ [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-##バージョン
+## バージョン
 1.0
 
-##作者
+## 作者
 Masaya SUZUKI <suzukimasaya428@gmail.com>
 
-##開発言語
+## 開発言語
 Kotlin
 
-##AI
+## AI
 * 強いAI  
 ユーザがどんなに強くても勝ちに行くことを目指したAI。  
 Negamax法とβカットを用い、10手先まで読む。  
