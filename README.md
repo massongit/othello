@@ -4,7 +4,7 @@
 1.0
 
 ## 作者
-Masaya SUZUKI <suzukimasaya428@gmail.com>
+Masaya SUZUKI <<suzukimasaya428@gmail.com>>
 
 ## 開発言語
 Kotlin
