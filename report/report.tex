@@ -10,8 +10,8 @@ pdfauthor={17NM708N 鈴木雅也} %著者
 \usepackage{pxjahyper}
 
 %画像読み込み用
-\usepackage{graphicx}
-\usepackage{color}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
 
 %listings
 \usepackage{listings}
@@ -44,7 +44,7 @@ showstringspaces=false
 \hline
 \hline
 OS & Ubuntu 16.04 LTS \\
-プログラミング言語 & Kotlin \\
+プログラミング言語 & Kotlin 1.1 \\
 JDK & Java SE Development Kit 8 \\
 ライブラリ & JavaFX \\
 IDE & IntelliJ IDEA Ultimate 2017.2 \\
@@ -229,34 +229,34 @@ x+\max(-y_1, -y_2, ..., -y_n)
 \bibliographystyle{junsrt}
 
 \section{ソースコード}
-\lstinputlisting[caption=settings.xml, label=list:settings.xml]{othello/resources/settings.xml}
-\lstinputlisting[caption=resources.xml, label=list:resources.xml]{othello/resources/resources.xml}
-\lstinputlisting[caption=resources\_ja.xml, label=list:resources_ja.xml]{othello/resources/resources_ja.xml}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/main.kt, label=list:main.kt]{othello/src/io/github/massongit/othello2017/kotlin/main.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.MainApplication, label=list:MainApplication]{othello/src/io/github/massongit/othello2017/kotlin/app/MainApplication.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.DisplayType, label=list:DisplayType]{othello/src/io/github/massongit/othello2017/kotlin/app/DisplayType.kt}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/menu/Menu.fxml, label=list:Menu.fxml]{othello/src/io/github/massongit/othello2017/kotlin/app/menu/Menu.fxml}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/menu/Menu.css, label=list:Menu.css]{othello/src/io/github/massongit/othello2017/kotlin/app/menu/Menu.css}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.menu.MenuController, label=list:MenuController]{othello/src/io/github/massongit/othello2017/kotlin/app/menu/MenuController.kt}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/start/StartDisplay.fxml, label=list:StartDisplay.fxml]{othello/src/io/github/massongit/othello2017/kotlin/app/start/StartDisplay.fxml}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/start/StartDisplay.css, label=list:StartDisplay.css]{othello/src/io/github/massongit/othello2017/kotlin/app/start/StartDisplay.css}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.start.StartDisplayController, label=list:StartDisplayController]{othello/src/io/github/massongit/othello2017/kotlin/app/start/StartDisplayController.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.Node, label=list:Node]{othello/src/io/github/massongit/othello2017/kotlin/app/play/Node.kt}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.fxml, label=list:PlayDisplay.fxml]{othello/src/io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.fxml}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.css, label=list:PlayDisplay.css]{othello/src/io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.css}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.PlayDisplayController, label=list:PlayDisplayController]{othello/src/io/github/massongit/othello2017/kotlin/app/play/PlayDisplayController.kt}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/information/Information.fxml, label=list:Information.fxml]{othello/src/io/github/massongit/othello2017/kotlin/app/play/information/Information.fxml}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/information/Information.css, label=list:Information.css]{othello/src/io/github/massongit/othello2017/kotlin/app/play/information/Information.css}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.information.InformationController, label=list:InformationController]{othello/src/io/github/massongit/othello2017/kotlin/app/play/information/InformationController.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.stone.Stone, label=list:Stone]{othello/src/io/github/massongit/othello2017/kotlin/app/play/stone/Stone.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.stone.Move, label=list:Move]{othello/src/io/github/massongit/othello2017/kotlin/app/play/stone/Move.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.stone.StoneState, label=list:StoneState]{othello/src/io/github/massongit/othello2017/kotlin/app/play/stone/StoneState.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.AI, label=list:AI]{othello/src/io/github/massongit/othello2017/kotlin/app/play/ai/AI.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.AIStrength, label=list:AIStrength]{othello/src/io/github/massongit/othello2017/kotlin/app/play/ai/AIStrength.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.node.AINode, label=list:AINode]{othello/src/io/github/massongit/othello2017/kotlin/app/play/ai/node/AINode.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.node.AINodeType, label=list:AINodeType]{othello/src/io/github/massongit/othello2017/kotlin/app/play/ai/node/AINodeType.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.nega\_max.NegaMaxAI, label=list:NegaMaxAI]{othello/src/io/github/massongit/othello2017/kotlin/app/play/ai/nega_max/NegaMaxAI.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.nega\_max.NegaMaxNode, label=list:NegaMaxNode]{othello/src/io/github/massongit/othello2017/kotlin/app/play/ai/nega_max/NegaMaxNode.kt}
-\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.utils.XMLResourceBundleControl, label=list:XMLResourceBundleControl]{othello/src/io/github/massongit/othello2017/kotlin/utils/XMLResourceBundleControl.kt}
-\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/utils/big\_integer.kt, label=list:big_integer.kt]{othello/src/io/github/massongit/othello2017/kotlin/utils/big_integer.kt}
+\lstinputlisting[caption=settings.xml, label=list:settings.xml]{../resources/settings.xml}
+\lstinputlisting[caption=resources.xml, label=list:resources.xml]{../resources/resources.xml}
+\lstinputlisting[caption=resources\_ja.xml, label=list:resources_ja.xml]{../resources/resources_ja.xml}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/main.kt, label=list:main.kt]{../src/io/github/massongit/othello2017/kotlin/main.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.MainApplication, label=list:MainApplication]{../src/io/github/massongit/othello2017/kotlin/app/MainApplication.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.DisplayType, label=list:DisplayType]{../src/io/github/massongit/othello2017/kotlin/app/DisplayType.kt}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/menu/Menu.fxml, label=list:Menu.fxml]{../src/io/github/massongit/othello2017/kotlin/app/menu/Menu.fxml}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/menu/Menu.css, label=list:Menu.css]{../src/io/github/massongit/othello2017/kotlin/app/menu/Menu.css}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.menu.MenuController, label=list:MenuController]{../src/io/github/massongit/othello2017/kotlin/app/menu/MenuController.kt}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/start/StartDisplay.fxml, label=list:StartDisplay.fxml]{../src/io/github/massongit/othello2017/kotlin/app/start/StartDisplay.fxml}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/start/StartDisplay.css, label=list:StartDisplay.css]{../src/io/github/massongit/othello2017/kotlin/app/start/StartDisplay.css}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.start.StartDisplayController, label=list:StartDisplayController]{../src/io/github/massongit/othello2017/kotlin/app/start/StartDisplayController.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.Node, label=list:Node]{../src/io/github/massongit/othello2017/kotlin/app/play/Node.kt}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.fxml, label=list:PlayDisplay.fxml]{../src/io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.fxml}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.css, label=list:PlayDisplay.css]{../src/io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.css}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.PlayDisplayController, label=list:PlayDisplayController]{../src/io/github/massongit/othello2017/kotlin/app/play/PlayDisplayController.kt}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/information/Information.fxml, label=list:Information.fxml]{../src/io/github/massongit/othello2017/kotlin/app/play/information/Information.fxml}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/app/play/information/Information.css, label=list:Information.css]{../src/io/github/massongit/othello2017/kotlin/app/play/information/Information.css}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.information.InformationController, label=list:InformationController]{../src/io/github/massongit/othello2017/kotlin/app/play/information/InformationController.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.stone.Stone, label=list:Stone]{../src/io/github/massongit/othello2017/kotlin/app/play/stone/Stone.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.stone.Move, label=list:Move]{../src/io/github/massongit/othello2017/kotlin/app/play/stone/Move.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.stone.StoneState, label=list:StoneState]{../src/io/github/massongit/othello2017/kotlin/app/play/stone/StoneState.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.AI, label=list:AI]{../src/io/github/massongit/othello2017/kotlin/app/play/ai/AI.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.AIStrength, label=list:AIStrength]{../src/io/github/massongit/othello2017/kotlin/app/play/ai/AIStrength.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.node.AINode, label=list:AINode]{../src/io/github/massongit/othello2017/kotlin/app/play/ai/node/AINode.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.node.AINodeType, label=list:AINodeType]{../src/io/github/massongit/othello2017/kotlin/app/play/ai/node/AINodeType.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.nega\_max.NegaMaxAI, label=list:NegaMaxAI]{../src/io/github/massongit/othello2017/kotlin/app/play/ai/nega_max/NegaMaxAI.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.app.play.ai.nega\_max.NegaMaxNode, label=list:NegaMaxNode]{../src/io/github/massongit/othello2017/kotlin/app/play/ai/nega_max/NegaMaxNode.kt}
+\lstinputlisting[caption=io.github.massongit.othello2017.kotlin.utils.XMLResourceBundleControl, label=list:XMLResourceBundleControl]{../src/io/github/massongit/othello2017/kotlin/utils/XMLResourceBundleControl.kt}
+\lstinputlisting[caption=io/github/massongit/othello2017/kotlin/utils/big\_integer.kt, label=list:big_integer.kt]{../src/io/github/massongit/othello2017/kotlin/utils/big_integer.kt}
 \end{document}
