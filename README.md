@@ -1,4 +1,7 @@
-# オセロ [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+# オセロ
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
+NegaMax法を用いたオセロのプログラム
 
 ## バージョン
 1.0
