@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-<VBox stylesheets="@PlayDisplay.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.css"
+      xmlns="http://javafx.com/javafx/8.0.112"
       fx:controller="io.github.massongit.othello2017.kotlin.app.play.PlayDisplayController">
-    <fx:include fx:id="menu" source="../menu/Menu.fxml"/>
+    <fx:include fx:id="menu" source="/io/github/massongit/othello2017/kotlin/app/menu/Menu.fxml"/>
     <GridPane fx:id="board" styleClass="board">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" prefWidth="60.0"/>
@@ -26,5 +28,6 @@
             <RowConstraints prefHeight="60.0" valignment="CENTER"/>
         </rowConstraints>
     </GridPane>
-    <fx:include fx:id="information" source="information/Information.fxml"/>
+    <fx:include fx:id="information"
+                source="/io/github/massongit/othello2017/kotlin/app/play/information/Information.fxml"/>
 </VBox>

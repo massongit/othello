@@ -2,8 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.input.KeyCodeCombination?>
-<MenuBar xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" id="menu-bar"
-         stylesheets="@Menu.css" fx:controller="io.github.massongit.othello2017.kotlin.app.menu.MenuController">
+<MenuBar xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" id="menu-bar"
+         stylesheets="@/io/github/massongit/othello2017/kotlin/app/menu/Menu.css"
+         fx:controller="io.github.massongit.othello2017.kotlin.app.menu.MenuController">
     <Menu text="%file">
         <MenuItem onAction="#onReset" text="%reset">
             <accelerator>

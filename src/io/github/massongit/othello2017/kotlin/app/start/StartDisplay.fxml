@@ -4,10 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox prefHeight="563.0" prefWidth="480.0" stylesheets="@StartDisplay.css, @../play/PlayDisplay.css"
-      xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="563.0"
+      prefWidth="480.0"
+      stylesheets="@/io/github/massongit/othello2017/kotlin/app/start/StartDisplay.css, @/io/github/massongit/othello2017/kotlin/app/play/PlayDisplay.css"
+      xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="io.github.massongit.othello2017.kotlin.app.start.StartDisplayController">
-    <fx:include source="../menu/Menu.fxml"/>
+    <fx:include source="/io/github/massongit/othello2017/kotlin/app/menu/Menu.fxml"/>
     <VBox alignment="CENTER" fillWidth="false" prefHeight="506.0" prefWidth="480.0" styleClass="board">
         <Label id="title" alignment="CENTER" prefHeight="60.0" prefWidth="180.0" text="%title">
             <font>
