@@ -12,7 +12,6 @@ import javafx.scene.control.TextArea
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.Priority
 import javafx.stage.Stage
-import java.io.FileInputStream
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.nio.file.Paths
@@ -38,7 +37,7 @@ class MainApplication : Application() {
         /**
          * プロパティ
          */
-        val properties: Properties = Properties().apply { loadFromXML(FileInputStream(Paths.get(MainApplication::class.java.protectionDomain.codeSource.location.toURI()).resolve("settings.xml").toString())) }
+        val properties: Properties = Properties().apply { loadFromXML(MainApplication::class.java.classLoader.getResourceAsStream("settings.xml")) }
 
         /**
          * リソースバンドル
