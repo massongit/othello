@@ -9,12 +9,15 @@ NegaMax法を用いたオセロのプログラム
 ## 作者
 Masaya SUZUKI <<suzukimasaya428@gmail.com>>
 
+## ビルド方法
+IntelliJ IDEAを使用します
+
 ## 実行方法
 ### Windows
-`othello.vbs`を起動
+`othello.vbs`を起動します
 
 ### Linux
-`othello.sh`を起動
+`othello.sh`を起動します
 
 ## 詳細
 [report/report.pdf](report/report.pdf)参照
