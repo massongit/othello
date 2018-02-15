@@ -1,5 +1,6 @@
 package io.github.massongit.othello2017.kotlin.app
 
+import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -25,5 +26,5 @@ enum class DisplayType {
     /**
      * 画面のFXMLのパス
      */
-    open val fxmlPath: Path = Paths.get(DisplayType::class.qualifiedName?.replace(".", "/")).parent
+    open val fxmlPath: Path = Paths.get(DisplayType::class.qualifiedName?.replace(".", File.separator)).parent
 }

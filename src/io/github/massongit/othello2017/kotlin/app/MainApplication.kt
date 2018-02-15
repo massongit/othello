@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.Priority
 import javafx.stage.Stage
+import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.nio.file.Paths
@@ -49,7 +50,7 @@ class MainApplication : Application() {
          * @param display 遷移先の画面
          */
         fun translateDisplay(display: DisplayType) {
-            stage.scene = Scene(FXMLLoader(MainApplication::class.java.getResource(Paths.get(MainApplication::class.qualifiedName?.replace(".", "/")).parent.relativize(display.fxmlPath).toString()), RESOURCES).load())
+            stage.scene = Scene(FXMLLoader(MainApplication::class.java.getResource(Paths.get(MainApplication::class.qualifiedName?.replace(".", File.separator)).parent.relativize(display.fxmlPath).toString()), RESOURCES).load())
             stage.apply {
                 // ステージの表示
                 show()
